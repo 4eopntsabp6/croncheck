@@ -15,6 +15,18 @@ func FilterByExpression(h *History, expr string) []Entry {
 	return filterBy(h, func(e Entry) bool { return e.Expression == expr })
 }
 
+// FilterByTag returns entries that contain the given tag.
+func FilterByTag(h *History, tag string) []Entry {
+	return filterBy(h, func(e Entry) bool {
+		for _, t := range e.Tags {
+			if t == tag {
+				return true
+			}
+		}
+		return false
+	})
+}
+
 // Deduplicate returns entries with duplicate expressions removed,
 // keeping the most recent occurrence of each expression.
 func Deduplicate(h *History) []Entry {
